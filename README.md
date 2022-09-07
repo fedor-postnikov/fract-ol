@@ -15,7 +15,7 @@ Run program with this command:
 For example:  
 ```./fractol Mandelbrot```
 
-Use WASD or arrows keys to move across the fractal.  
+Use `WASD` or arrows keys to move across the fractal.  
 Mouse wheel for zoom in and out.  
-Press C key to change color scheme.  
-Press ESC or "Close window" button to close.
+Press `C` key to change color scheme.  
+Press `ESC` or "Close window" button to close.
