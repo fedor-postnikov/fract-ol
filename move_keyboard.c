@@ -12,9 +12,8 @@
 
 #include "fractol.h"
 
-void	move_down(t_data *data)
-{
-	double	delta;
+void move_down(t_data *data) {
+	double delta;
 
 	delta = fabs(data->max.im - data->min.im);
 	data->min.im -= delta * 0.1;
@@ -22,9 +21,8 @@ void	move_down(t_data *data)
 	draw_fractal(data);
 }
 
-void	move_up(t_data *data)
-{
-	double	delta;
+void move_up(t_data *data) {
+	double delta;
 
 	delta = fabs(data->max.im - data->min.im);
 	data->min.im += delta * 0.1;
@@ -32,9 +30,8 @@ void	move_up(t_data *data)
 	draw_fractal(data);
 }
 
-void	move_left(t_data *data)
-{
-	double	delta;
+void move_left(t_data *data) {
+	double delta;
 
 	delta = fabs(data->max.re - data->min.re);
 	data->min.re -= delta * 0.1;
@@ -42,9 +39,8 @@ void	move_left(t_data *data)
 	draw_fractal(data);
 }
 
-void	move_right(t_data *data)
-{
-	double	delta;
+void move_right(t_data *data) {
+	double delta;
 
 	delta = fabs(data->max.re - data->min.re);
 	data->min.re += delta * 0.1;

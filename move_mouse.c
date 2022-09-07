@@ -12,17 +12,15 @@
 
 #include "fractol.h"
 
-void	julia_motion(int x, int y, t_data *data)
-{
+void julia_motion(int x, int y, t_data *data) {
 	data->k = init_complex(
-			4 * ((double)x / WINDOW_WIDTH - 0.5),
-			4 * ((double)(WINDOW_HEIGHT - y) / WINDOW_HEIGHT - 0.5));
+			4 * ((double) x / WINDOW_WIDTH - 0.5),
+			4 * ((double) (WINDOW_HEIGHT - y) / WINDOW_HEIGHT - 0.5));
 	draw_fractal(data);
 }
 
-void	zoom_in(t_data *data)
-{
-	t_complex	delta;
+void zoom_in(t_data *data) {
+	t_complex delta;
 
 	delta = init_complex(
 			fabs(data->max.re - data->min.re),
@@ -34,9 +32,8 @@ void	zoom_in(t_data *data)
 	draw_fractal(data);
 }
 
-void	zoom_out(t_data *data)
-{
-	t_complex	delta;
+void zoom_out(t_data *data) {
+	t_complex delta;
 
 	delta = init_complex(
 			fabs(data->max.re - data->min.re),

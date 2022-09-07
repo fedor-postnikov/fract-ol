@@ -12,10 +12,9 @@
 
 #include "fractol.h"
 
-void	usage(void)
-{
+void usage(void) {
 	ft_putendl_fd("Usage: ./fractol <fractal name> [int 1] [int 2]",
-		STDOUT_FILENO);
+				  STDOUT_FILENO);
 	ft_putendl_fd("", STDOUT_FILENO);
 	ft_putendl_fd("Note: [int 1] and [int 2] parameters \
 only applies for Julia fractal", STDOUT_FILENO);

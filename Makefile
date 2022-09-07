@@ -1,9 +1,15 @@
 NAME = fractol
 
-LIBFT_DIR = ./libft/
-LIBFT = ${LIBFT_DIR}libft.a
+SYS_LIB_DIR = /usr/X11/lib
+SYS_INC_DIR = /usr/X11/include
 
-HEADERS = ${LIBFT_DIR}/libft.h fractol.h
+LIBFT_DIR = ./libft/
+LIBFT = $(LIBFT_DIR)libft.a
+
+MLX_DIR = ./mlx/
+MLX = $(MLX_DIR)libmlx.a
+
+HEADERS = $(LIBFT_DIR)/libft.h $(MLX_DIR)/mlx.h
 
 SRC = \
 	fractol.c \
@@ -17,41 +23,52 @@ SRC = \
 	parse.c \
 	colors.c \
 
-OBJS = ${SRC:.c=.o}
-INCS = -I${LIBFT_DIR}
+OBJS = $(SRC:.c=.o)
+INCS = -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(SYS_INC_DIR)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Ofast
 CFLAGS_DEBUG = -Wall -Wextra -Werror -g -fsanitize=address
-LFLAGS = -L ${LIBFT_DIR} \
-	-lmlx \
-	-lft \
-	-framework OpenGL -framework AppKit
 
-%.o :	%.c ${HEADERS}
-	${CC} ${CFLAGS} ${INCS} -c $< -o $@
+# LFLAGS depends on system you use: MacOS or Linux
+SHELL:=/bin/bash
+UNAME_S = $(shell uname -s)
+ifneq ($(UNAME_S), Linux)
+	LFLAGS = -L $(LIBFT_DIR) -L $(MLX_DIR) -L $(SYS_LIB_DIR) \
+		-lft \
+		-lmlx -lm -lXext -lX11 \
+		-framework OpenGL -framework AppKit
+else
+	LFLAGS = -L $(LIBFT_DIR) -L $(MLX_DIR) -L $(SYS_LIB_DIR) \
+		-lft \
+		-lmlx -lm -lXext -lX11
+endif
 
-all:	${NAME}
+%.o :	%.c $(HEADERS)
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-${NAME}:	${OBJS} ${LIBFT}
-	${CC} ${CFLAGS} ${INCS} ${OBJS} ${LFLAGS} -o ${NAME}
+all:	$(NAME)
 
-${LIBFT}:
+$(NAME):	$(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LFLAGS) -o $(NAME)
+
+$(LIBFT):
 	@make -C libft
 
+$(MLX):
+	@make -C mlx
+
 clean:
-	${RM} ${OBJS}
-	@make clean -C libft
+	$(RM) $(OBJS)
 
 fclean:	clean
-	${RM} ${NAME}
-	@make fclean -C libft
+	$(RM) $(NAME)
 
 re:	fclean all
 
 debug:
-	@make re CFLAGS="${CFLAGS_DEBUG}"
+	@make re CFLAGS="$(CFLAGS_DEBUG)"
 
 norm:
-	norminette ${SRC} ${HEADERS}
+	norminette $(SRC) $(HEADERS)
 
 .PHONY:		all clean fclean re debug norm

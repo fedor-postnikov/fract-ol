@@ -12,22 +12,19 @@
 
 #include "fractol.h"
 
-t_complex	init_complex(double re, double im)
-{
-	t_complex	complex;
+t_complex init_complex(double re, double im) {
+	t_complex complex;
 
 	complex.re = re;
 	complex.im = im;
 	return (complex);
 }
 
-void	exit_error(int error_code)
-{
+void exit_error(int error_code) {
 	exit(error_code);
 }
 
-void	loop(t_data *data)
-{
+void loop(t_data *data) {
 	draw_fractal(data);
 	mlx_loop(data->mlx);
 }

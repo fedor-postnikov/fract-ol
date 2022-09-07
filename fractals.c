@@ -12,16 +12,14 @@
 
 #include "fractol.h"
 
-int	mandelbrot(t_data *data)
-{
-	t_complex	z;
-	int			iteration;
+int mandelbrot(t_data *data) {
+	t_complex z;
+	int iteration;
 
 	z = init_complex(data->c.re, data->c.im);
 	iteration = 0;
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		&& iteration < data->max_iteration)
-	{
+		   && iteration < data->max_iteration) {
 		z = init_complex(
 				pow(z.re, 2.0) - pow(z.im, 2.0) + data->c.re,
 				2.0 * z.re * z.im + data->c.im);
@@ -30,16 +28,14 @@ int	mandelbrot(t_data *data)
 	return (iteration);
 }
 
-int	julia(t_data *data)
-{
-	int			iteration;
-	t_complex	z;
+int julia(t_data *data) {
+	int iteration;
+	t_complex z;
 
 	iteration = 0;
 	z = init_complex(data->c.re, data->c.im);
 	while (pow(z.re, 2) + pow(z.im, 2) <= 4 \
-		&& (iteration < data->max_iteration))
-	{
+ && (iteration < data->max_iteration)) {
 		z = init_complex(
 				pow(z.re, 2.0) - pow(z.im, 2.0) + data->k.re,
 				2.0 * z.re * z.im + data->k.im);
@@ -48,16 +44,14 @@ int	julia(t_data *data)
 	return (iteration);
 }
 
-int	ship(t_data *data)
-{
-	int			iteration;
-	t_complex	z;
+int ship(t_data *data) {
+	int iteration;
+	t_complex z;
 
 	iteration = 0;
 	z = init_complex(data->c.re, data->c.im);
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		&& iteration < data->max_iteration)
-	{
+		   && iteration < data->max_iteration) {
 		z = init_complex(
 				pow(z.re, 2.0) - pow(z.im, 2.0) + data->c.re,
 				-2.0 * fabs(z.re * z.im) + data->c.im);
@@ -66,16 +60,14 @@ int	ship(t_data *data)
 	return (iteration);
 }
 
-int	perpship(t_data *data)
-{
-	int			iteration;
-	t_complex	z;
+int perpship(t_data *data) {
+	int iteration;
+	t_complex z;
 
 	iteration = 0;
 	z = init_complex(data->c.re, data->c.im);
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		&& iteration < data->max_iteration)
-	{
+		   && iteration < data->max_iteration) {
 		z = init_complex(
 				pow(z.re, 2.0) - pow(z.im, 2.0) + data->c.re,
 				-2.0 * z.re * fabs(z.im) + data->c.im);
@@ -84,16 +76,14 @@ int	perpship(t_data *data)
 	return (iteration);
 }
 
-int	celticperp(t_data *data)
-{
-	int			iteration;
-	t_complex	z;
+int celticperp(t_data *data) {
+	int iteration;
+	t_complex z;
 
 	iteration = 0;
 	z = init_complex(data->c.re, data->c.im);
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		&& iteration < data->max_iteration)
-	{
+		   && iteration < data->max_iteration) {
 		z = init_complex(
 				fabs(pow(z.re, 2.0) - pow(z.im, 2.0)) + data->c.re,
 				-2.0 * fabs(z.re) * z.im + data->c.im);

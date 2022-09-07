@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dalfredi <dalfredi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dalfredi <dalfredi@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 13:44:38 by dalfredi          #+#    #+#             */
-/*   Updated: 2022/04/14 16:36:09 by dalfredi         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:28:52 by dalfredi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_julia(t_data *data, int x, int y)
 }
 
 void	init_fractal(t_data *data,
-		int (*fractal_func)(struct s_data *), char *name)
+					 int (*fractal_func)(struct s_data *), char *name)
 {
 	data->fractal_func = fractal_func;
 	data->fractal_name = name;
@@ -37,10 +37,10 @@ t_img	*init_image(void *mlx)
 		exit_error(ERROR_MALLOC);
 	img->img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	img->addr = mlx_get_data_addr(img->img,
-			&(img->bits_per_pixel),
-			&(img->line_length),
-			&(img->endian)
-			);
+								  &(img->bits_per_pixel),
+								  &(img->line_length),
+								  &(img->endian)
+	);
 	return (img);
 }
 
@@ -48,12 +48,12 @@ void	init(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx,
-			WINDOW_WIDTH, WINDOW_HEIGHT, data->fractal_name);
+							   WINDOW_WIDTH, WINDOW_HEIGHT, data->fractal_name);
 	data->img_curr = init_image(data->mlx);
 	data->img_prev = init_image(data->mlx);
 	mlx_hook(data->win, ON_DESTROY, 0, close_window, data);
-	mlx_hook(data->win, ON_KEYDOWN, 0, key_pressed, data);
-	mlx_hook(data->win, ON_MOUSEDOWN, 0, mouse_pressed, data);
+	mlx_hook(data->win, ON_KEYDOWN, (1L<<0), key_pressed, data);
+	mlx_hook(data->win, ON_MOUSEDOWN, (1L<<2), mouse_pressed, data);
 	mlx_hook(data->win, ON_MOUSEMOVE, 0, mouse_move, data);
 	data->color = 1;
 	data->min.re = -2.0;
